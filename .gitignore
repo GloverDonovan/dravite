@@ -1,0 +1,6 @@
+# Ignore all build files from shards install
+.shards/
+lib/
+
+# Ignore all binary files from make
+bin/
