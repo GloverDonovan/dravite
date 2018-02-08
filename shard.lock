@@ -1,0 +1,14 @@
+version: 1.0
+shards:
+  crinja:
+    github: straight-shoota/crinja
+    commit: b1e9e875f442400444d9a755ed7f8449363ecd25
+
+  markd:
+    github: icyleaf/markd
+    version: 0.1.1
+
+  sass:
+    github: straight-shoota/sass.cr
+    commit: 02f96816d25b3fb09ef255b2fcef053c93f22f81
+

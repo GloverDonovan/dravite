@@ -1,0 +1,15 @@
+name: dravite
+description: Finally, a consistent and reliable static site generator for the web.
+author: Donovan Glover
+
+dependencies:
+  markd:
+    github: icyleaf/markd
+  sass:
+    github: straight-shoota/sass.cr
+  crinja:
+    github: straight-shoota/crinja
+
+version: 0.1.0
+
+crystal: 0.24.1
