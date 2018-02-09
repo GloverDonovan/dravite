@@ -1,3 +1,3 @@
-bin/drav: dravite.cr
+bin/drav: src/dravite.cr
 	@mkdir -p bin
-	@crystal build dravite.cr -o bin/drav --stats | lolcat
+	@crystal build src/dravite.cr -o bin/drav --stats | lolcat
