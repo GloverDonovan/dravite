@@ -25,6 +25,30 @@ module Dravite
     :js  => "app.js",
     :css => "design.css",
   }
+
+  module Parse
+    extend self
+
+    def markdown(file : String) : String
+      Markd.to_html(File.read(file), Dravite::MARKD)
+    end
+
+    def crinja(file : String, data : Hash = {} of String => String) : String
+      Crinja::Template.new(File.read(file)).render(data)
+    end
+
+    def sass(file : String) : String
+      Sass.compile_file(file)
+    end
+  end
+
+  def parse(dir : String)
+  end
+
+  def err(str : String)
+    puts str.colorize(:red)
+    exit 1
+  end
 end
 
 OptionParser.parse! do |opts|
@@ -40,7 +64,9 @@ OptionParser.parse! do |opts|
 
   opts.unknown_args do |args|
     if args.size > 0
-      puts "The drav [directory] functionality is incomplete for now."
+      Dravite.parse(args[0])
+    else
+      Dravite.parse(".")
     end
   end
 end
