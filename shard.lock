@@ -2,11 +2,23 @@ version: 1.0
 shards:
   crinja:
     github: straight-shoota/crinja
-    commit: b1e9e875f442400444d9a755ed7f8449363ecd25
+    version: 0.3.0
+
+  kemal:
+    github: kemalcr/kemal
+    version: 0.22.0
+
+  kilt:
+    github: jeromegn/kilt
+    version: 0.4.0
 
   markd:
     github: icyleaf/markd
     version: 0.1.1
+
+  radix:
+    github: luislavena/radix
+    version: 0.3.8
 
   sass:
     github: straight-shoota/sass.cr
