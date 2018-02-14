@@ -1,8 +1,10 @@
 require "markd"
 require "crinja"
 require "sass"
+require "kemal"
 require "colorize"
 require "option_parser"
+require "./modules/*"
 
 module Dravite
   extend self
@@ -10,37 +12,6 @@ module Dravite
   VERSION = "0.1.0"
 
   MARKD = Markd::Options.new(smart: true)
-
-  IN = {
-    :js       => "app",
-    :css      => "style",
-    :pages    => "pages",
-    :posts    => "posts",
-    :layouts  => "layouts",
-    :includes => "includes",
-    :data     => "data",
-  }
-
-  OUT = {
-    :js  => "app.js",
-    :css => "design.css",
-  }
-
-  module Parse
-    extend self
-
-    def markdown(file : String) : String
-      Markd.to_html(File.read(file), Dravite::MARKD)
-    end
-
-    def crinja(file : String, data : Hash = {} of String => String) : String
-      Crinja::Template.new(File.read(file)).render(data)
-    end
-
-    def sass(file : String) : String
-      Sass.compile_file(file)
-    end
-  end
 
   def parse(dir : String)
     js_dir       = "#{dir}/#{Dravite::IN[:js]}"
@@ -51,7 +22,7 @@ module Dravite
     includes_dir = "#{dir}/#{Dravite::IN[:includes]}"
     data_dir     = "#{dir}/#{Dravite::IN[:data]}"
 
-    puts Dravite.parse_pages(pages_dir, layouts_dir)
+    Dravite.parse_pages(pages_dir, layouts_dir)
   end
 
   def parse_pages(pages_dir : String, layouts_dir : String)
@@ -63,7 +34,12 @@ module Dravite
                end
       render = Dravite::Parse.crinja("#{layouts_dir}/default.html", {
         "content" => output,
+        "page" => {} of String => String,
+        "site" => {} of String => String,
+        "header" => "includes/header.html",
+        "footer" => "includes/footer.html"
       })
+      puts render
     end
   end
 
@@ -84,11 +60,15 @@ OptionParser.parse! do |opts|
     puts Dravite::VERSION
   end
 
+  opts.on("-s", "--server", "Start a local server") do
+    Dravite::Server.init
+  end
+
   opts.unknown_args do |args|
     if args.size > 0
-      Dravite.parse(args[0])
+      Dravite::Build.init(args[0])
     else
-      Dravite.parse(".")
+      Dravite::Build.init(".")
     end
   end
 end
