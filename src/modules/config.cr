@@ -2,7 +2,7 @@ module Dravite::Config
   extend self
 
   @@STRING : Hash(Symbol, String) = {
-    :dir => ".",
+    :dir      => ".",
     :js       => "app",
     :css      => "style",
     :pages    => "pages",
