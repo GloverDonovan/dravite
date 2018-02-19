@@ -4,7 +4,8 @@ require "sass"
 require "kemal"
 require "colorize"
 require "option_parser"
-require "./modules/*"
+require "./dravite/modules/*"
+require "./dravite/classes/*"
 require "./cli"
 
 module Dravite
@@ -14,19 +15,10 @@ module Dravite
 
   MARKD = Markd::Options.new(smart: true)
 
-  def parse(dir : String)
-    js_dir       = "#{dir}/#{Dravite::IN[:js]}"
-    css_dir      = "#{dir}/#{Dravite::IN[:css]}"
-    pages_dir    = "#{dir}/#{Dravite::IN[:pages]}"
-    posts_dir    = "#{dir}/#{Dravite::IN[:posts]}"
-    layouts_dir  = "#{dir}/#{Dravite::IN[:layouts]}"
-    includes_dir = "#{dir}/#{Dravite::IN[:includes]}"
-    data_dir     = "#{dir}/#{Dravite::IN[:data]}"
-
-    Dravite.parse_pages(pages_dir, layouts_dir)
-  end
-
-  def parse_pages(pages_dir : String, layouts_dir : String)
+  # NOTE: Generation functionality can probably be separated into
+  # its own module; this makes it easier to use Dravite as a library
+  # in addition to an application
+  def parse_pages
     Dir.each_child(pages_dir) do |page|
       output = if page.ends_with?("md")
                  Dravite::Parse.markdown("#{pages_dir}/#{page}")
