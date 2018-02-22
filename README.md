@@ -2,15 +2,62 @@
 
 Finally, a consistent and reliable static site generator for the web.
 
-**NOTE**: This project is incomplete. You can't use it yet.
+## Installation
+
+You can use Dravite as both a library and a standalone binary.
+
+If you want to use the CLI, install it with `make`:
+
+```
+make
+make install
+```
+
+If you instead want to integrate Dravite with your own application, add this to your `shards.yml`:
+
+```
+dependencies:
+  dravite:
+    github: GloverDonovan/dravite
+```
+
+## Usage
+
+### Dravite CLI
+
+Create a new site:
+
+```
+drav init
+```
+
+Serve the current site with Kemal:
+
+```
+drav serve
+```
+
+Build the current site:
+
+```
+drav build
+```
+
+### Dravite API
+
+Create a new site:
+
+```
+my_site = new Dravite::Site
+```
 
 ## Todo
 
 MVP:
 
+- [x] Customizable input and output directories.
 - [ ] Separation of content from style and layout.
 - [ ] Guide / recommended style guidelines.
-- [ ] Customizable input and output directories.
 - [ ] Page-specific variables (should these variables be in `data/` instead?)
 
 Nice to haves:
