@@ -1,4 +1,5 @@
 require "./dravite"
+require "option_parser"
 
 OptionParser.parse! do |opts|
   opts.banner = "Usage: drav [directory]"
